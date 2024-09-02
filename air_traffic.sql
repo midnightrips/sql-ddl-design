@@ -15,11 +15,29 @@ CREATE TABLE tickets
   seat TEXT NOT NULL,
   departure TIMESTAMP NOT NULL,
   arrival TIMESTAMP NOT NULL,
-  airline TEXT NOT NULL,
-  from_city TEXT NOT NULL,
-  from_country TEXT NOT NULL,
+  airline_id INTEGER REFERENCES airlines (id),
+  from_city_id INTEGER REFERENCES cities (id),
+  from_country_id INTEGER REFERENCES countries (id),
   to_city TEXT NOT NULL,
-  to_country TEXT NOT NULL
+  to_country_id INTEGER REFERENCES countries (id)
+);
+
+CREATE TABLE airlines
+(
+  id SERIAL PRIMARY KEY,
+  airline TEXT NOT NULL
+);
+
+CREATE TABLE cities
+(
+  id SERIAL PRIMARY KEY,
+  city TEXT NOT NULL
+)
+
+CREATE TABLE countries
+(
+  id SERIAL PRIMARY KEY,
+  country TEXT NOT NULL
 );
 
 INSERT INTO tickets

@@ -12,13 +12,37 @@ CREATE TABLE planets
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   orbital_period_in_years FLOAT NOT NULL,
-  orbits_around TEXT NOT NULL,
-  galaxy TEXT NOT NULL,
+  orbits_around_id INTEGER REFERENCES orbits (id),
+  galaxy_id INTEGER REFERENCES galaxies (id),
   moons TEXT[]
 );
 
+CREATE TABLE orbits
+(
+  id SERIAL PRIMARY KEY,
+  orbit TEXT NOT NULL
+);
+
+CREATE TABLE galaxies
+(
+  id SERIAL PRIMARY KEY,
+  galaxy TEXT NOT NULL
+);
+
+INSERT INTO orbits
+  (orbit)
+VALUES
+  ('THE SUN'),
+  ('Proxima Centauri'),
+  ('Gliese 876');
+
+INSERT INTO galaxies
+  (galaxy)
+VALUES
+  ('Milky Way');
+
 INSERT INTO planets
-  (name, orbital_period_in_years, orbits_around, galaxy, moons)
+  (name, orbital_period_in_years, orbits_around_id, galaxy_id, moons)
 VALUES
   ('Earth', 1.00, 'The Sun', 'Milky Way', '{"The Moon"}'),
   ('Mars', 1.88, 'The Sun', 'Milky Way', '{"Phobos", "Deimos"}'),
